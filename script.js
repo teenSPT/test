@@ -135,29 +135,33 @@ function executeSelection() {
     const key = `${selectedTicker}_${selectedBroker}`;
     const spread = spreadData[key] !== undefined ? spreadData[key] : "N/A";
 
+    // デフォルト値を "." に置換
+    const formatValue = (value, defaultValue) => value !== defaultValue ? value : '.';
+
     // 結果表示のための情報を構築
     const resultInfo = `
-        ${selectedTicker !== defaultValues.ticker ? selectedTicker : ''}: 
-        ${selectedTime !== defaultValues.time ? selectedTime : ''} 
-        ${selectedBlock !== defaultValues.block ? selectedBlock : ''}   
-        ${selectedB2tm !== defaultValues.b2tm ? selectedB2tm : ''} 
-        ${selectedB2blk !== defaultValues.b2blk ? selectedB2blk : ''} 
-        / TFC: ${selectedTfc !== defaultValues.tfc ? selectedTfc : ''} 
-        / 決定打: ${selectedDecisiveTime !== defaultValues.decisiveTime ? selectedDecisiveTime : ''} 
-        ${selectedDecisiveBlock !== defaultValues.decisiveBlock ? selectedDecisiveBlock : ''} 
+        ${formatValue(selectedTicker, defaultValues.ticker)}: 
+        ${formatValue(selectedTime, defaultValues.time)} 
+        ${formatValue(selectedBlock, defaultValues.block)}   
+        ${formatValue(selectedB2tm, defaultValues.b2tm)} 
+        ${formatValue(selectedB2blk, defaultValues.b2blk)} 
+        / TFC: ${formatValue(selectedTfc, defaultValues.tfc)} 
+        / 決定打: ${formatValue(selectedDecisiveTime, defaultValues.decisiveTime)} 
+        ${formatValue(selectedDecisiveBlock, defaultValues.decisiveBlock)} 
         ...
-        ${selectedC1tm !== defaultValues.c1tm ? selectedC1tm : ''} 
-        ${selectedC1nc !== defaultValues.c1nc ? selectedC1nc : ''} 
-        / ${selectedC2tm !== defaultValues.c2tm ? selectedC2tm : ''} 
-        ${selectedC2nc !== defaultValues.c2nc ? selectedC2nc : ''} 
-        / ${selectedC3tm !== defaultValues.c3tm ? selectedC3tm : ''} 
-        ${selectedC3nc !== defaultValues.c3nc ? selectedC3nc : ''}...
-        ${selectedBroker !== defaultValues.broker ? selectedBroker : ''} Spread: ${spread}
+        ${formatValue(selectedC1tm, defaultValues.c1tm)} 
+        ${formatValue(selectedC1nc, defaultValues.c1nc)} 
+        / ${formatValue(selectedC2tm, defaultValues.c2tm)} 
+        ${formatValue(selectedC2nc, defaultValues.c2nc)} 
+        / ${formatValue(selectedC3tm, defaultValues.c3tm)} 
+        ${formatValue(selectedC3nc, defaultValues.c3nc)}...
+        ${formatValue(selectedBroker, defaultValues.broker)} Spread: ${spread}
     `.replace(/\s+/g, ' ').trim(); // 不要な空白を除去
 
     // 結果を表示
     resultDiv.innerText = resultInfo;
 }
+
 
 function copyInfo() {
     const resultDiv = document.getElementById('result');
