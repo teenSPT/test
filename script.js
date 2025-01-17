@@ -162,7 +162,10 @@ function copyInfo() {
     // デバッグ用にアラートを表示
     alert("Copying text: " + textToCopy); // コピーするテキストをアラートで表示
 
-    navigator.clipboard.writeText(textToCopy).then(() => {
+    // 文字列をデコード
+    const decodedText = decodeURIComponent(encodeURIComponent(textToCopy));
+
+    navigator.clipboard.writeText(decodedText).then(() => {
         alert('Copy‼');
     }).catch(err => {
         alert('Failed to copy: ' + err); // エラーメッセージをアラートで表示
