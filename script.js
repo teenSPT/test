@@ -118,7 +118,7 @@ function executeSelection() {
 
     // デフォルト値を定義
     const defaultValues = {
-        ticker: 'Ticker',
+       /* ticker: 'Ticker', */
         time: 'Time',
         block: 'Block',
         b2tm: 'Time',
@@ -153,7 +153,9 @@ function executeSelection() {
     // 空白を削除して表示
     resultDiv.innerHTML = resultInfo.replace(/\s+/g, ' ').trim();
 }
+/*
 
+*/
 
 function copyInfo() {
     const resultDiv = document.getElementById('result');
