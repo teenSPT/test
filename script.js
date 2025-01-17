@@ -118,7 +118,7 @@ function executeSelection() {
 
     // デフォルト値を定義
     const defaultValues = {
-        /*ticker: 'Ticker',*/
+        ticker: 'Ticker',
         time: 'Time',
         block: 'Block',
         b2tm: 'Time',
@@ -134,13 +134,17 @@ function executeSelection() {
         c3nc: 'c',
         broker: 'Broker'
     };
-    
-    const tickerInfo = selectedTicker !== defaultValues.ticker ? `${selectedTicker}` : '';
+
+    // Tickerの結果表示を独立させる
+    const tickerInfo = selectedTicker !== defaultValues.ticker ? `Ticker: ${selectedTicker}` : 'Ticker: N/A';
 
     // 結果表示のための情報を構築
     const resultInfo = `
-        ${tickerInfo}: ${selectedTime !== defaultValues.time ? selectedTime : ''} ${selectedBlock !== defaultValues.block ? selectedBlock : ''} <br>
-
+        ${tickerInfo} <br>
+        
+        Time: ${selectedTime !== defaultValues.time ? selectedTime : ''} <br>
+        Block: ${selectedBlock !== defaultValues.block ? selectedBlock : ''} <br>
+        
         ${selectedB2tm !== defaultValues.b2tm ? selectedB2tm : ''} ${selectedB2blk !== defaultValues.b2blk ? selectedB2blk : ''} / TFC: ${selectedTfc !== defaultValues.tfc ? selectedTfc : ''} / <br>
         
         決定打: ${selectedDecisiveTime !== defaultValues.decisiveTime ? selectedDecisiveTime : ''} ${selectedDecisiveBlock !== defaultValues.decisiveBlock ? selectedDecisiveBlock : ''} /<br> 
@@ -156,19 +160,6 @@ function executeSelection() {
     resultDiv.innerHTML = resultInfo.replace(/\s+/g, ' ').trim();
 }
 
-/*
-${selectedTicker !== defaultValues.ticker ? selectedTicker : ''}
- ${selectedTicker}
- // 空白を削除して表示
-    resultDiv.innerHTML = resultInfo.replace(/\s+/g, ' ').trim();
-*/   /**/
-
-function copyInfo() {
-    const resultDiv = document.getElementById('result');
-    navigator.clipboard.writeText(resultDiv.innerText).then(() => {
-        alert('Copy‼');
-    });
-}
 
 function copySpread() {
     const key = `${selectedTicker}_${selectedBroker}`;
