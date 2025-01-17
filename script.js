@@ -162,12 +162,7 @@ function copyInfo() {
     // デバッグ用にアラートを表示
     alert("Copying text: " + textToCopy); // コピーするテキストをアラートで表示
 
-    // UTF-8エンコード
-    const encodedText = new TextEncoder().encode(textToCopy);
-    const blob = new Blob([encodedText], { type: 'text/plain' });
-    
-    const data = [new ClipboardItem({ [blob.type]: blob })];
-    navigator.clipboard.write(data).then(() => {
+    navigator.clipboard.writeText(textToCopy).then(() => {
         alert('Copy‼');
     }).catch(err => {
         alert('Failed to copy: ' + err); // エラーメッセージをアラートで表示
