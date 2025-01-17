@@ -30,22 +30,22 @@ const spreadData = {
     'XAUUSD_TITAN': 30,
 };
 
-/*function filterTickers() {
-    const searchValue = document.getElementById('search').value.toLowerCase(); 
+function filterTickers() {
+    const searchValue = document.getElementById('search').value.toLowerCase();
     const tickerSelect = document.getElementById('ticker');
-    const options = Array.from(tickerSelect.options);  // オプションを配列に変換 
+    const options = Array.from(tickerSelect.options);  // オプションを配列に変換
 
     // 検索結果に一致するオプションと一致しないオプションを分ける
     const matchedOptions = options.filter(option => option.text.toLowerCase().includes(searchValue));
-    const unmatchedOptions = options.filter(option => !option.text.toLowerCase().includes(searchValue)); 
+    const unmatchedOptions = options.filter(option => !option.text.toLowerCase().includes(searchValue));
 
     // 一致するオプションを最初に、次に一致しないオプションを配置
-    const sortedOptions = [...matchedOptions, ...unmatchedOptions]; 
+    const sortedOptions = [...matchedOptions, ...unmatchedOptions];
 
     // <select>内のオプションを再配置
     tickerSelect.innerHTML = '';  // 現在のオプションをクリア
-    sortedOptions.forEach(option => tickerSelect.appendChild(option));  // 新しい順番で追加 
-} */
+    sortedOptions.forEach(option => tickerSelect.appendChild(option));  // 新しい順番で追加
+}
 
 // `input` イベントで即座にフィルタリング
 document.getElementById('search').addEventListener('input', filterTickers);
@@ -118,7 +118,7 @@ function executeSelection() {
 
     // デフォルト値を定義
     const defaultValues = {
-       /* ticker: 'Ticker',*/
+        ticker: 'Ticker',
         time: 'Time',
         block: 'Block',
         b2tm: 'Time',
@@ -134,10 +134,12 @@ function executeSelection() {
         c3nc: 'c',
         broker: 'Broker'
     };
+    
+    const tickerInfo = selectedTicker !== defaultValues.ticker ? `${selectedTicker}` : '';
 
     // 結果表示のための情報を構築
     const resultInfo = `
-        ${selectedTicker}: ${selectedTime !== defaultValues.time ? selectedTime : ''} ${selectedBlock !== defaultValues.block ? selectedBlock : ''} <br>
+        ${tickerInfo}: ${selectedTime !== defaultValues.time ? selectedTime : ''} ${selectedBlock !== defaultValues.block ? selectedBlock : ''} <br>
 
         ${selectedB2tm !== defaultValues.b2tm ? selectedB2tm : ''} ${selectedB2blk !== defaultValues.b2blk ? selectedB2blk : ''} / TFC: ${selectedTfc !== defaultValues.tfc ? selectedTfc : ''} / <br>
         
@@ -153,8 +155,12 @@ function executeSelection() {
     // 空白を削除して表示
     resultDiv.innerHTML = resultInfo.replace(/\s+/g, ' ').trim();
 }
+
 /*
 ${selectedTicker !== defaultValues.ticker ? selectedTicker : ''}
+ ${selectedTicker}
+ // 空白を削除して表示
+    resultDiv.innerHTML = resultInfo.replace(/\s+/g, ' ').trim();
 */
 
 function copyInfo() {
