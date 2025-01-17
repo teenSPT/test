@@ -137,18 +137,26 @@ function executeSelection() {
 
     // 結果表示のための情報を構築
     const resultInfo = `
-        ${selectedTicker !== defaultValues.ticker ? selectedTicker : ''}: ${selectedTime !== defaultValues.time ? selectedTime : ''} ${selectedBlock !== defaultValues.block ? selectedBlock : ''}   
-        ${selectedB2tm !== defaultValues.b2tm ? selectedB2tm : ''} ${selectedB2blk !== defaultValues.b2blk ? selectedB2blk : ''} / TFC: ${selectedTfc !== defaultValues.tfc ? selectedTfc : ''} / 
-        決定打: ${selectedDecisiveTime !== defaultValues.decisiveTime ? selectedDecisiveTime : ''} ${selectedDecisiveBlock !== defaultValues.decisiveBlock ? selectedDecisiveBlock : ''} / 
+        ${selectedTicker !== defaultValues.ticker ? selectedTicker : ''}: 
+        ${selectedTime !== defaultValues.time ? selectedTime : ''} 
+        ${selectedBlock !== defaultValues.block ? selectedBlock : ''}   
+        ${selectedB2tm !== defaultValues.b2tm ? selectedB2tm : ''} 
+        ${selectedB2blk !== defaultValues.b2blk ? selectedB2blk : ''} 
+        / TFC: ${selectedTfc !== defaultValues.tfc ? selectedTfc : ''} 
+        / 決定打: ${selectedDecisiveTime !== defaultValues.decisiveTime ? selectedDecisiveTime : ''} 
+        ${selectedDecisiveBlock !== defaultValues.decisiveBlock ? selectedDecisiveBlock : ''} 
         ...
-        ${selectedC1tm !== defaultValues.c1tm ? selectedC1tm : ''} ${selectedC1nc !== defaultValues.c1nc ? selectedC1nc : ''} / 
-        ${selectedC2tm !== defaultValues.c2tm ? selectedC2tm : ''} ${selectedC2nc !== defaultValues.c2nc ? selectedC2nc : ''} / 
-        ${selectedC3tm !== defaultValues.c3tm ? selectedC3tm : ''} ${selectedC3nc !== defaultValues.c3nc ? selectedC3nc : ''}...
+        ${selectedC1tm !== defaultValues.c1tm ? selectedC1tm : ''} 
+        ${selectedC1nc !== defaultValues.c1nc ? selectedC1nc : ''} 
+        / ${selectedC2tm !== defaultValues.c2tm ? selectedC2tm : ''} 
+        ${selectedC2nc !== defaultValues.c2nc ? selectedC2nc : ''} 
+        / ${selectedC3tm !== defaultValues.c3tm ? selectedC3tm : ''} 
+        ${selectedC3nc !== defaultValues.c3nc ? selectedC3nc : ''}...
         ${selectedBroker !== defaultValues.broker ? selectedBroker : ''} Spread: ${spread}
-    `;
+    `.replace(/\s+/g, ' ').trim(); // 不要な空白を除去
 
-    // innerTextを使用してテキストを設定
-    resultDiv.innerText = resultInfo.replace(/\s+/g, ' ').trim();
+    // 結果を表示
+    resultDiv.innerText = resultInfo;
 }
 
 function copyInfo() {
@@ -156,7 +164,11 @@ function copyInfo() {
     const textToCopy = resultDiv.innerText.trim(); // 空白をトリム
 
     if (textToCopy) { // テキストが空でないことを確認
-        navigator.clipboard.writeText(textToCopy).then(() => {
+        const normalizedText = textToCopy
+            .replace(/[\u200B-\u200D\uFEFF]/g, '') // ゼロ幅スペースを削除
+            .replace(/\r?\n|\r/g, '\n'); // 改行コードを統一
+
+        navigator.clipboard.writeText(normalizedText).then(() => {
             alert('Copy‼');
         }).catch(err => {
             alert('Failed to copy: ' + err);
@@ -164,14 +176,4 @@ function copyInfo() {
     } else {
         alert('Nothing to copy!'); // コピーする内容がない場合の警告
     }
-}
-
-function copySpread() {
-    const key = `${selectedTicker}_${selectedBroker}`;
-    const spread = spreadData[key] !== undefined ? spreadData[key] : "N/A";
-    navigator.clipboard.writeText(`${spread}`).then(() => {
-        alert(`Spread: ${spread}`);
-    }).catch(err => {
-        alert('Failed to copy: ' + err);
-    });
 }
