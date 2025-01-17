@@ -134,8 +134,7 @@ function getResultInfo(spread) {
     };
 
     const resultInfo = `
-         ${selectedTime !== defaultValues.time ? selectedTime : ''} <br>
-         ${selectedBlock !== defaultValues.block ? selectedBlock : ''} <br>
+        ${selectedTime !== defaultValues.time ? selectedTime : ''} ${selectedBlock !== defaultValues.block ? selectedBlock : ''} <br>
         
         ${selectedB2tm !== defaultValues.b2tm ? selectedB2tm : ''} ${selectedB2blk !== defaultValues.b2blk ? selectedB2blk : ''} / TFC: ${selectedTfc !== defaultValues.tfc ? selectedTfc : ''} / <br>
         
@@ -160,19 +159,19 @@ function executeSelection() {
     const resultInfo = getResultInfo(spread);
 
     const finalResult = `
-        ${tickerInfo} <br>
+        ${tickerInfo} 
         ${resultInfo}
     `;
 
     resultDiv.innerHTML = finalResult.replace(/\s+/g, ' ').trim();
 
-    // デバッグ情報を表示
+    /*// デバッグ情報を表示
     document.getElementById('debugInfo').innerHTML = `
         Selected Ticker: ${selectedTicker} <br>
         Selected Broker: ${selectedBroker} <br>
         Selected Time: ${selectedTime} <br>
-        Selected Block: ${selectedBlock} <br>
-    `;
+        Selected Block: ${selectedBlock} <br> 
+    `;*/
 }
 
 function copyInfo() {
