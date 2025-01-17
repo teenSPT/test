@@ -166,8 +166,13 @@ function copyInfo() {
     const data = [new ClipboardItem({ [blob.type]: blob })];
     navigator.clipboard.write(data).then(() => {
         alert('Copy‼');
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
     });
+    
+    console.log("Copying text:", textToCopy); // コピーするテキストを出力
 }
+
 
 
 function copySpread() {
