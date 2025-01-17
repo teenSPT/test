@@ -153,11 +153,17 @@ function executeSelection() {
 
 function copyInfo() {
     const resultDiv = document.getElementById('result');
-    navigator.clipboard.writeText(resultDiv.innerText).then(() => {
-        alert('Copy‼');
-    }).catch(err => {
-        alert('Failed to copy: ' + err);
-    });
+    const textToCopy = resultDiv.innerText.trim(); // 空白をトリム
+
+    if (textToCopy) { // テキストが空でないことを確認
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            alert('Copy‼');
+        }).catch(err => {
+            alert('Failed to copy: ' + err);
+        });
+    } else {
+        alert('Nothing to copy!'); // コピーする内容がない場合の警告
+    }
 }
 
 function copySpread() {
