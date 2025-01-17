@@ -118,7 +118,7 @@ function executeSelection() {
 
     // デフォルト値を定義
     const defaultValues = {
-        ticker: 'Ticker',
+       /* ticker: 'Ticker',*/
         time: 'Time',
         block: 'Block',
         b2tm: 'Time',
