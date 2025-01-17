@@ -111,44 +111,44 @@ function updateBroker(value) {
     selectedBroker = value;
 }
 
+// デフォルト値を定義
+const defaultValues = {
+    ticker: 'Ticker',
+    time: 'Time',
+    block: 'Block',
+    b2tm: 'Time',
+    b2blk: 'Block',
+    tfc: 'Time',
+    decisiveTime: 'Time',
+    decisiveBlock: 'Block',
+    c1tm: 'Time',
+    c1nc: 'c',
+    c2tm: 'Time',
+    c2nc: 'c',
+    c3tm: 'Time',
+    c3nc: 'c',
+    broker: 'Broker'
+};
+
 function executeSelection() {
     const resultDiv = document.getElementById('result');
     const key = `${selectedTicker}_${selectedBroker}`;
     const spread = spreadData[key] !== undefined ? spreadData[key] : "N/A";
 
-    // デフォルト値を定義
-    const defaultValues = {
-        ticker: 'Ticker',
-        time: 'Time',
-        block: 'Block',
-        b2tm: 'Time',
-        b2blk: 'Block',
-        tfc: 'Time',
-        decisiveTime: 'Time',
-        decisiveBlock: 'Block',
-        c1tm: 'Time',
-        c1nc: 'c',
-        c2tm: 'Time',
-        c2nc: 'c',
-        c3tm: 'Time',
-        c3nc: 'c',
-        broker: 'Broker'
-    };
-
     // 結果表示のための情報を構築
     const resultInfo = `
-        ${selectedTicker !== defaultValues.ticker ? selectedTicker : ''}: ${selectedTime !== defaultValues.time ? selectedTime : ''} ${selectedBlock !== defaultValues.block ? selectedBlock : ''}   
-        ${selectedB2tm !== defaultValues.b2tm ? selectedB2tm : ''} ${selectedB2blk !== defaultValues.b2blk ? selectedB2blk : ''} / TFC: ${selectedTfc !== defaultValues.tfc ? selectedTfc : ''} / 
-        決定打: ${selectedDecisiveTime !== defaultValues.decisiveTime ? selectedDecisiveTime : ''} ${selectedDecisiveBlock !== defaultValues.decisiveBlock ? selectedDecisiveBlock : ''} / 
-        ...
-        ${selectedC1tm !== defaultValues.c1tm ? selectedC1tm : ''} ${selectedC1nc !== defaultValues.c1nc ? selectedC1nc : ''} / 
-        ${selectedC2tm !== defaultValues.c2tm ? selectedC2tm : ''} ${selectedC2nc !== defaultValues.c2nc ? selectedC2nc : ''} / 
-        ${selectedC3tm !== defaultValues.c3tm ? selectedC3tm : ''} ${selectedC3nc !== defaultValues.c3nc ? selectedC3nc : ''}...
+        ${selectedTicker !== defaultValues.ticker ? selectedTicker : ''}: ${selectedTime !== defaultValues.time ? selectedTime : ''} ${selectedBlock !== defaultValues.block ? selectedBlock : ''} <br>
+        ${selectedB2tm !== defaultValues.b2tm ? selectedB2tm : ''} ${selectedB2blk !== defaultValues.b2blk ? selectedB2blk : ''} / TFC: ${selectedTfc !== defaultValues.tfc ? selectedTfc : ''} / <br>
+        決定打: ${selectedDecisiveTime !== defaultValues.decisiveTime ? selectedDecisiveTime : ''} ${selectedDecisiveBlock !== defaultValues.decisiveBlock ? selectedDecisiveBlock : ''} /<br> 
+        ...<br> 
+        ${selectedC1tm !== defaultValues.c1tm ? selectedC1tm : ''} ${selectedC1nc !== defaultValues.c1nc ? selectedC1nc : ''} / <br>
+        ${selectedC2tm !== defaultValues.c2tm ? selectedC2tm : ''} ${selectedC2nc !== defaultValues.c2nc ? selectedC2nc : ''} / <br>
+        ${selectedC3tm !== defaultValues.c3tm ? selectedC3tm : ''} ${selectedC3nc !== defaultValues.c3nc ? selectedC3nc : ''}...<br>
         ${selectedBroker !== defaultValues.broker ? selectedBroker : ''} Spread: ${spread}
     `;
 
-    // innerTextを使用してテキストを設定
-    resultDiv.innerText = resultInfo.replace(/\s+/g, ' ').trim();
+    // 空白を削除して表示
+    resultDiv.innerHTML = resultInfo.replace(/\s+/g, ' ').trim();
 }
 
 function copyInfo() {
