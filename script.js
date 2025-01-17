@@ -112,18 +112,11 @@ function updateBroker(value) {
 }
 
 function getTickerInfo() {
-    // Tickerの結果表示を独立させる
-    return selectedTicker !== 'Ticker' ? `Ticker: ${selectedTicker}` : 'Ticker: N/A';
+    return selectedTicker !== 'Ticker' ? ` ${selectedTicker}` : 'Ticker: N/A';
 }
 
-function executeSelection() {
-    const resultDiv = document.getElementById('result');
-    const key = `${selectedTicker}_${selectedBroker}`;
-    const spread = spreadData[key] !== undefined ? spreadData[key] : "N/A";
-
-    // デフォルト値を定義
+function getResultInfo(spread) {
     const defaultValues = {
-        ticker: 'Ticker',
         time: 'Time',
         block: 'Block',
         b2tm: 'Time',
@@ -140,15 +133,9 @@ function executeSelection() {
         broker: 'Broker'
     };
 
-    // Tickerの情報を取得
-    const tickerInfo = getTickerInfo();
-
-    // 結果表示のための情報を構築
     const resultInfo = `
-        ${tickerInfo} <br>
-        
-        Time: ${selectedTime !== defaultValues.time ? selectedTime : ''} <br>
-        Block: ${selectedBlock !== defaultValues.block ? selectedBlock : ''} <br>
+         ${selectedTime !== defaultValues.time ? selectedTime : ''} <br>
+         ${selectedBlock !== defaultValues.block ? selectedBlock : ''} <br>
         
         ${selectedB2tm !== defaultValues.b2tm ? selectedB2tm : ''} ${selectedB2blk !== defaultValues.b2blk ? selectedB2blk : ''} / TFC: ${selectedTfc !== defaultValues.tfc ? selectedTfc : ''} / <br>
         
@@ -161,18 +148,32 @@ function executeSelection() {
         ${selectedBroker !== defaultValues.broker ? selectedBroker : ''} Spread: ${spread}
     `;
 
-    // 空白を削除して表示
-    resultDiv.innerHTML = resultInfo.replace(/\s+/g, ' ').trim();
+    return resultInfo;
 }
 
+function executeSelection() {
+    const resultDiv = document.getElementById('result');
+    const key = `${selectedTicker}_${selectedBroker}`;
+    const spread = spreadData[key] !== undefined ? spreadData[key] : "N/A";
 
+    const tickerInfo = getTickerInfo();
+    const resultInfo = getResultInfo(spread);
 
-/*
-${selectedTicker !== defaultValues.ticker ? selectedTicker : ''}
- ${selectedTicker}
- // 空白を削除して表示
-    resultDiv.innerHTML = resultInfo.replace(/\s+/g, ' ').trim();
-*/   /**/
+    const finalResult = `
+        ${tickerInfo} <br>
+        ${resultInfo}
+    `;
+
+    resultDiv.innerHTML = finalResult.replace(/\s+/g, ' ').trim();
+
+    // デバッグ情報を表示
+    document.getElementById('debugInfo').innerHTML = `
+        Selected Ticker: ${selectedTicker} <br>
+        Selected Broker: ${selectedBroker} <br>
+        Selected Time: ${selectedTime} <br>
+        Selected Block: ${selectedBlock} <br>
+    `;
+}
 
 function copyInfo() {
     const resultDiv = document.getElementById('result');
