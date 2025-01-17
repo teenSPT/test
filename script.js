@@ -137,7 +137,7 @@ function executeSelection() {
 
     // 結果表示のための情報を構築
     const resultInfo = `
-        ${selectedTicker !== defaultValues.ticker ? selectedTicker : ''}: ${selectedTime !== defaultValues.time ? selectedTime : ''} ${selectedBlock !== defaultValues.block ? selectedBlock : ''} <br>
+        : ${selectedTime !== defaultValues.time ? selectedTime : ''} ${selectedBlock !== defaultValues.block ? selectedBlock : ''} <br>
 
         ${selectedB2tm !== defaultValues.b2tm ? selectedB2tm : ''} ${selectedB2blk !== defaultValues.b2blk ? selectedB2blk : ''} / TFC: ${selectedTfc !== defaultValues.tfc ? selectedTfc : ''} / <br>
         
@@ -154,7 +154,7 @@ function executeSelection() {
     resultDiv.innerHTML = resultInfo.replace(/\s+/g, ' ').trim();
 }
 /*
-
+${selectedTicker !== defaultValues.ticker ? selectedTicker : ''}
 */
 
 function copyInfo() {
