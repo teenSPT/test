@@ -69,6 +69,14 @@ function escapeHTML(str) {
 function updateTicker(value) {
     selectedTicker = value;
 }
+
+function updateTicker(value) {
+    console.log('Updating Ticker to:', value); // デバッグ用
+    selectedTicker = value;
+    console.log('Selected Ticker is now:', selectedTicker); // デバッグ用
+    executeSelection(); // 表示を更新
+}
+
 function updateTime(value) {
     selectedTime = value;
 }
