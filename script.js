@@ -111,6 +111,11 @@ function updateBroker(value) {
     selectedBroker = value;
 }
 
+function getTickerInfo() {
+    // Tickerの結果表示を独立させる
+    return selectedTicker !== 'Ticker' ? `Ticker: ${selectedTicker}` : 'Ticker: N/A';
+}
+
 function executeSelection() {
     const resultDiv = document.getElementById('result');
     const key = `${selectedTicker}_${selectedBroker}`;
@@ -118,7 +123,7 @@ function executeSelection() {
 
     // デフォルト値を定義
     const defaultValues = {
-       /* ticker: 'Ticker',*/
+        ticker: 'Ticker',
         time: 'Time',
         block: 'Block',
         b2tm: 'Time',
@@ -135,8 +140,8 @@ function executeSelection() {
         broker: 'Broker'
     };
 
-    // Tickerの結果表示を独立させる
-    const tickerInfo = selectedTicker !== defaultValues.ticker ? `Ticker: ${selectedTicker}` : 'Ticker: N/A';
+    // Tickerの情報を取得
+    const tickerInfo = getTickerInfo();
 
     // 結果表示のための情報を構築
     const resultInfo = `
@@ -159,6 +164,7 @@ function executeSelection() {
     // 空白を削除して表示
     resultDiv.innerHTML = resultInfo.replace(/\s+/g, ' ').trim();
 }
+
 
 
 /*
