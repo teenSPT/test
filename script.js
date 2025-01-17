@@ -161,6 +161,20 @@ function executeSelection() {
 }
 
 
+/*
+${selectedTicker !== defaultValues.ticker ? selectedTicker : ''}
+ ${selectedTicker}
+ // 空白を削除して表示
+    resultDiv.innerHTML = resultInfo.replace(/\s+/g, ' ').trim();
+*/   /**/
+
+function copyInfo() {
+    const resultDiv = document.getElementById('result');
+    navigator.clipboard.writeText(resultDiv.innerText).then(() => {
+        alert('Copy‼');
+    });
+}
+
 function copySpread() {
     const key = `${selectedTicker}_${selectedBroker}`;
     const spread = spreadData[key] !== undefined ? spreadData[key] : "N/A";
