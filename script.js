@@ -30,22 +30,22 @@ const spreadData = {
     'XAUUSD_TITAN': 30,
 };
 
-function filterTickers() {
-    const searchValue = document.getElementById('search').value.toLowerCase();
+/*function filterTickers() {
+    const searchValue = document.getElementById('search').value.toLowerCase(); 
     const tickerSelect = document.getElementById('ticker');
-    const options = Array.from(tickerSelect.options);  // オプションを配列に変換
+    const options = Array.from(tickerSelect.options);  // オプションを配列に変換 
 
     // 検索結果に一致するオプションと一致しないオプションを分ける
     const matchedOptions = options.filter(option => option.text.toLowerCase().includes(searchValue));
-    const unmatchedOptions = options.filter(option => !option.text.toLowerCase().includes(searchValue));
+    const unmatchedOptions = options.filter(option => !option.text.toLowerCase().includes(searchValue)); 
 
     // 一致するオプションを最初に、次に一致しないオプションを配置
-    const sortedOptions = [...matchedOptions, ...unmatchedOptions];
+    const sortedOptions = [...matchedOptions, ...unmatchedOptions]; 
 
     // <select>内のオプションを再配置
     tickerSelect.innerHTML = '';  // 現在のオプションをクリア
-    sortedOptions.forEach(option => tickerSelect.appendChild(option));  // 新しい順番で追加
-}
+    sortedOptions.forEach(option => tickerSelect.appendChild(option));  // 新しい順番で追加 
+} */
 
 // `input` イベントで即座にフィルタリング
 document.getElementById('search').addEventListener('input', filterTickers);
@@ -116,20 +116,46 @@ function executeSelection() {
     const key = `${selectedTicker}_${selectedBroker}`;
     const spread = spreadData[key] !== undefined ? spreadData[key] : "N/A";
 
+    // デフォルト値を定義
+    const defaultValues = {
+       /* ticker: 'Ticker',*/
+        time: 'Time',
+        block: 'Block',
+        b2tm: 'Time',
+        b2blk: 'Block',
+        tfc: 'Time',
+        decisiveTime: 'Time',
+        decisiveBlock: 'Block',
+        c1tm: 'Time',
+        c1nc: 'c',
+        c2tm: 'Time',
+        c2nc: 'c',
+        c3tm: 'Time',
+        c3nc: 'c',
+        broker: 'Broker'
+    };
+
+    // 結果表示のための情報を構築
     const resultInfo = `
-        ${selectedTicker}: ${selectedTime} ${selectedBlock}   
-        ${selectedB2tm} ${selectedB2blk} / TFC: ${selectedTfc} / 
-        決定打: ${selectedDecisiveTime} ${selectedDecisiveBlock} / 
-        ...
-        ${selectedC1tm} ${selectedC1nc} / 
-        ${selectedC2tm} ${selectedC2nc} / 
-        ${selectedC3tm} ${selectedC3nc}...
+        ${selectedTicker !== defaultValues.ticker ? selectedTicker : ''}: ${selectedTime !== defaultValues.time ? selectedTime : ''} ${selectedBlock !== defaultValues.block ? selectedBlock : ''} <br>
 
-        ${selectedBroker} Spread: ${spread}
+        ${selectedB2tm !== defaultValues.b2tm ? selectedB2tm : ''} ${selectedB2blk !== defaultValues.b2blk ? selectedB2blk : ''} / TFC: ${selectedTfc !== defaultValues.tfc ? selectedTfc : ''} / <br>
+        
+        決定打: ${selectedDecisiveTime !== defaultValues.decisiveTime ? selectedDecisiveTime : ''} ${selectedDecisiveBlock !== defaultValues.decisiveBlock ? selectedDecisiveBlock : ''} /<br> 
+        ...<br> 
+        ${selectedC1tm !== defaultValues.c1tm ? selectedC1tm : ''} ${selectedC1nc !== defaultValues.c1nc ? selectedC1nc : ''} / <br>
+        ${selectedC2tm !== defaultValues.c2tm ? selectedC2tm : ''} ${selectedC2nc !== defaultValues.c2nc ? selectedC2nc : ''} / <br>
+        ${selectedC3tm !== defaultValues.c3tm ? selectedC3tm : ''} ${selectedC3nc !== defaultValues.c3nc ? selectedC3nc : ''}...<br>
 
+        ${selectedBroker !== defaultValues.broker ? selectedBroker : ''} Spread: ${spread}
     `;
-    resultDiv.innerText = resultInfo;
+
+    // 空白を削除して表示
+    resultDiv.innerHTML = resultInfo.replace(/\s+/g, ' ').trim();
 }
+/*
+${selectedTicker !== defaultValues.ticker ? selectedTicker : ''}
+*/
 
 function copyInfo() {
     const resultDiv = document.getElementById('result');
