@@ -159,6 +159,9 @@ function copyInfo() {
     const resultDiv = document.getElementById('result');
     const textToCopy = resultDiv.innerText.replace(/\s+/g, ' ').trim();
     
+    // デバッグ用にアラートを表示
+    alert("Copying text: " + textToCopy); // コピーするテキストをアラートで表示
+
     // UTF-8エンコード
     const encodedText = new TextEncoder().encode(textToCopy);
     const blob = new Blob([encodedText], { type: 'text/plain' });
@@ -167,10 +170,8 @@ function copyInfo() {
     navigator.clipboard.write(data).then(() => {
         alert('Copy‼');
     }).catch(err => {
-        console.error('Failed to copy: ', err);
+        alert('Failed to copy: ' + err); // エラーメッセージをアラートで表示
     });
-    
-    console.log("Copying text:", textToCopy); // コピーするテキストを出力
 }
 
 
